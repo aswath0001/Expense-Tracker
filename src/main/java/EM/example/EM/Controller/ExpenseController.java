@@ -5,9 +5,13 @@ import EM.example.EM.Entity.Expense;
 import EM.example.EM.Services.expense.ExpenseService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/expense")
@@ -68,6 +72,17 @@ public ResponseEntity<?> updateExpense (@PathVariable Long id,@RequestBody Expen
             return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
+        }
+    }
+    @GetMapping("/filter")
+    public ResponseEntity<?> getExpensesByDateRange(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
+    ) {
+        try {
+            return ResponseEntity.ok(expenseService.getExpenseByDateRange(startDate, endDate));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
         }
     }
 }

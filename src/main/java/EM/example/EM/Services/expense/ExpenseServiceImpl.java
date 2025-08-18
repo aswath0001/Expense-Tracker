@@ -5,8 +5,10 @@ import EM.example.EM.Entity.Expense;
 import EM.example.EM.Repository.ExpenseRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -48,6 +50,9 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .collect(Collectors.toList());
 
     }
+    public  List <Expense> getExpenseByDateRange(LocalDate startDate , LocalDate endDate){
+        return expenseRepository.findByDateBetween(startDate,endDate);
+    }
     public  Expense getExpenseById (long id){
         Optional <Expense> optionalExpense = expenseRepository.findById(id);
        if(optionalExpense.isPresent()){
@@ -69,4 +74,5 @@ expenseRepository.deleteById(id);
             throw new EntityNotFoundException("Expense not found for the Id "+id);
         }
     }
+
 }
