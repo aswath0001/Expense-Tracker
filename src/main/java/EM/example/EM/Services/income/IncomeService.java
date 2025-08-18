@@ -8,4 +8,5 @@ import java.util.List;
 public interface IncomeService {
     Income postIncome (IncomeDTO incomeDTO);
     List<IncomeDTO> getAllIncome();
+    Income updateIncome (Long id, IncomeDTO incomeDTO);
 }

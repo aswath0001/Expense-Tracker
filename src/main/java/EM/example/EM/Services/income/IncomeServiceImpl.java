@@ -3,6 +3,7 @@ package EM.example.EM.Services.income;
 import EM.example.EM.DTO.IncomeDTO;
 import EM.example.EM.Entity.Income;
 import EM.example.EM.Repository.IncomeRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,15 @@ public class IncomeServiceImpl implements IncomeService {
 
         return incomeRepository.save(income);
     }
+    public Income updateIncome (Long id, IncomeDTO incomeDTO){
+        Optional<Income> optionalIncome = incomeRepository.findById(id);
+        if(optionalIncome.isPresent()){
+            return saveOrUpdateIncome(optionalIncome.get() ,incomeDTO);
+        }else {
+            throw new EntityNotFoundException("Income is not present with id "+id);
+        }
+    }
+
 public List <IncomeDTO> getAllIncome(){
         return incomeRepository.findAll().stream().sorted(Comparator.comparing(Income::getDate).reversed())
                 .map(Income::getIncomeDTO)
