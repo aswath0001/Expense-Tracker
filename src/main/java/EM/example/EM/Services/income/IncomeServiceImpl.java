@@ -45,4 +45,14 @@ public List <IncomeDTO> getAllIncome(){
                 .map(Income::getIncomeDTO)
                 .collect(Collectors.toList());
         }
+
+        public IncomeDTO getIncomeById (Long id){
+        Optional<Income> optionalIncome = incomeRepository.findById(id);
+        if(optionalIncome.isPresent()){
+            return optionalIncome.get().getIncomeDTO();
+        }else {
+            throw new EntityNotFoundException("No income found for the id "+id);
+        }
+        }
+
 }
