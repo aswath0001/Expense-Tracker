@@ -1,4 +1,4 @@
-package EM.example.EM.Services;
+package EM.example.EM.Services.expense;
 
 import EM.example.EM.DTO.ExpenseDTO;
 import EM.example.EM.Entity.Expense;
@@ -55,5 +55,14 @@ public class ExpenseServiceImpl implements ExpenseService {
        }else  {
            throw  new EntityNotFoundException("Expense is not present for the Id "+id);
        }
+    }
+
+    public void deleteExpense(long id){
+        Optional<Expense> optionalExpense = expenseRepository.findById(id);
+        if(optionalExpense.isPresent()){
+expenseRepository.deleteById(id);
+        }else {
+            throw new EntityNotFoundException("Expense not found for the Id "+id);
+        }
     }
 }

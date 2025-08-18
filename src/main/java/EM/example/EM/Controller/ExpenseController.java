@@ -2,9 +2,8 @@ package EM.example.EM.Controller;
 
 import EM.example.EM.DTO.ExpenseDTO;
 import EM.example.EM.Entity.Expense;
-import EM.example.EM.Services.ExpenseService;
+import EM.example.EM.Services.expense.ExpenseService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.Lob;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,4 +50,16 @@ public ResponseEntity<?> updateExpense (@PathVariable Long id,@RequestBody Expen
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
     }
 }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> DeleteExpense (@PathVariable Long id){
+        try {
+            expenseService.deleteExpense(id);
+            return ResponseEntity.ok(null);
+        }catch (EntityNotFoundException ex){
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
+        }
+    }
 }
