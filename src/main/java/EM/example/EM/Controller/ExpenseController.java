@@ -80,9 +80,13 @@ public ResponseEntity<?> updateExpense (@PathVariable Long id,@RequestBody Expen
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
     ) {
         try {
-            return ResponseEntity.ok(expenseService.getExpenseByDateRange(startDate, endDate));
+            List<Expense> expenses = expenseService.getExpenseByDateRange(startDate, endDate);
+           if(expenses.isEmpty()){
+               return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No expenses is found between "+ startDate+ " and "+endDate);
+           }
+return ResponseEntity.ok(expenses);
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
+            return ResponseEntity.internalServerError().body("Invalid Data");
         }
     }
 }
