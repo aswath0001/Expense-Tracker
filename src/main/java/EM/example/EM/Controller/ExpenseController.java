@@ -39,7 +39,15 @@ public ResponseEntity<?> getAllExpense(){
    }catch (Exception e ){
        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
    }
-}
+} @GetMapping("/title/{title}")
+    public ResponseEntity<?> getExpenseByTitle(@PathVariable String title) {
+        try {
+            return ResponseEntity.ok(expenseService.getExpenseByTitle(title));
+        } catch (EntityNotFoundException ex) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 @PutMapping("/{id}")
 public ResponseEntity<?> updateExpense (@PathVariable Long id,@RequestBody ExpenseDTO dto){
     try {

@@ -55,6 +55,10 @@ public class ExpenseServiceImpl implements ExpenseService {
        }else  {
            throw  new EntityNotFoundException("Expense is not present for the Id "+id);
        }
+    }@Override
+    public Expense getExpenseByTitle(String title) {
+        return expenseRepository.findByTitle(title)
+                .orElseThrow(() -> new EntityNotFoundException("Expense not found"));
     }
 
     public void deleteExpense(long id){

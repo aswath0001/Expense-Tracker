@@ -6,6 +6,11 @@ import EM.example.EM.Repository.IncomeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class IncomeServiceImpl implements IncomeService {
@@ -25,5 +30,9 @@ public class IncomeServiceImpl implements IncomeService {
 
         return incomeRepository.save(income);
     }
-
+public List <IncomeDTO> getAllIncome(){
+        return incomeRepository.findAll().stream().sorted(Comparator.comparing(Income::getDate).reversed())
+                .map(Income::getIncomeDTO)
+                .collect(Collectors.toList());
+        }
 }
