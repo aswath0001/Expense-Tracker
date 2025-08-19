@@ -99,5 +99,15 @@ return splitExpenseRepository.findById( id)
 
         return splitExpenseRepository.save(existingSplit);
     }
+
+    @Override
+    public List<SplitExpense> getExpenseByPayer(Long payerId) {
+        return splitExpenseRepository.findByPayerUserId(payerId);
+    }
+
+    @Override
+    public List<SplitExpense> getExpenseByPayee(Long payeeId){
+        return splitExpenseRepository.findByPayeeUserId(payeeId);
+    }
 }
 

@@ -74,4 +74,30 @@ public class SplitExpenseController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update split expense");
         }
     }
+    @GetMapping("/payer/{payerId}")
+    public ResponseEntity<?> getSplitByPayer(@PathVariable Long payerId){
+        try {
+            List<SplitExpense> splits = splitExpenseService.getExpenseByPayer(payerId);
+            if(splits.isEmpty()){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No split found for Payer");
+            }
+            return ResponseEntity.ok(splits);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to retrive splits by payer");
+        }
+    }
+    @GetMapping("/payee/{payeeId}")
+    public ResponseEntity<?> getExpenseByPayee(@PathVariable Long payeeId) {
+        try {
+            List<SplitExpense> splits = splitExpenseService.getExpenseByPayee(payeeId);
+            if (splits.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No splits found for payee");
+            }
+            return ResponseEntity.ok(splits);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to retrieve splits by payee");
+        }
+
+    }
 }

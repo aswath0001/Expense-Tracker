@@ -11,4 +11,6 @@ public interface SplitExpenseService {
    SplitExpense getSplitExpenseById (Long id);
    void deleteSplitExpense(Long id);
    SplitExpense updateSplitExpense(Long id,SplitExpenseDTO splitExpenseDTO);
+   List<SplitExpense>getExpenseByPayer(Long id);
+   List<SplitExpense>getExpenseByPayee(Long id);
 }
