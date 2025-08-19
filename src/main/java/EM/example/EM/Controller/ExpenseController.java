@@ -48,7 +48,7 @@ public ResponseEntity<?> getAllExpense(){
         try {
             return ResponseEntity.ok(expenseService.getExpenseByTitle(title));
         } catch (EntityNotFoundException ex) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(" There is no expenses on "+ title);
         }
     }
 

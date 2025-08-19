@@ -6,7 +6,6 @@ import EM.example.EM.Repository.ExpenseRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
@@ -73,5 +72,4 @@ expenseRepository.deleteById(id);
             throw new EntityNotFoundException("Expense not found for the Id "+id);
         }
     }
-
 }

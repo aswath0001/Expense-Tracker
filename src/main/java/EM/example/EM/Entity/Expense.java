@@ -1,12 +1,10 @@
 package EM.example.EM.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,4 +18,16 @@ public class Expense {
     private LocalDate date;
     private Integer amount;
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "paid_by_user_id")
+    private User paidByUser;
+
+    private Boolean isSplitExpense = false;
+
+    @OneToMany(mappedBy = "expense")
+    private List<ExpenseParticipant>participants;
+
+    @OneToMany(mappedBy = "expense")
+    private List<SplitExpense> splits;
 }
