@@ -1,5 +1,6 @@
 package EM.example.EM.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,14 +21,17 @@ public class Expense {
     private String description;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "paid_by_user_id")
     private User paidByUser;
 
     private Boolean isSplitExpense = false;
 
     @OneToMany(mappedBy = "expense")
+    @JsonIgnore
     private List<ExpenseParticipant>participants;
 
     @OneToMany(mappedBy = "expense")
+    @JsonIgnore
     private List<SplitExpense> splits;
 }

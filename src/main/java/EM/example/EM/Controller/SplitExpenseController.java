@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/split-expense")
@@ -28,5 +30,48 @@ public class SplitExpenseController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create split");
         }
     }
+    @GetMapping("/all")
+    public ResponseEntity<?>getAllSplitExpenses(){
+        try {
+            List <SplitExpense> split =splitExpenseService.getAllSplitExpenses();
+            if(split.isEmpty()){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No split expenses found");
+            }
+            return ResponseEntity.ok(split);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to retrive split expenses");
+        }
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getSplitExpenseById(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(splitExpenseService.getSplitExpenseById(id));
+        } catch (EntityNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to retrieve split expense");
+        }
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteExpense(@PathVariable Long id){
+        try{
+            splitExpenseService.deleteSplitExpense(id);
+            return ResponseEntity.noContent().build();
+        }catch (EntityNotFoundException ex ){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete the expense");
+        }
+    }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateSplitExpense(@PathVariable Long id, @RequestBody SplitExpenseDTO dto) {
+        try {
+            return ResponseEntity.ok(splitExpenseService.updateSplitExpense(id, dto));
+        } catch (EntityNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update split expense");
+        }
+    }
 }

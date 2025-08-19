@@ -1,5 +1,6 @@
 package EM.example.EM.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,6 +14,7 @@ public class SplitExpense {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "expense_id")
     private Expense expense;
 
@@ -21,6 +23,7 @@ public class SplitExpense {
     private User payerUser;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "payee_user_id")
     private User payeeUser;
 

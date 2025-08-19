@@ -6,6 +6,6 @@ import lombok.Data;
 public class SplitExpenseDTO {
 private Long expenseId;
 private Long payerId;
-private Long PayeeId;
+private Long payeeId;
 private Double amount;
 }

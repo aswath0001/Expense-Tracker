@@ -1,6 +1,7 @@
 package EM.example.EM.Entity;
 
 import EM.example.EM.DTO.IncomeDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,6 +20,7 @@ public class Income {
     private String description;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "received_by_user_id")
     private User receivedByUser;
     private Boolean isSplitSettlement = false;
