@@ -13,4 +13,5 @@ public interface SplitExpenseService {
    SplitExpense updateSplitExpense(Long id,SplitExpenseDTO splitExpenseDTO);
    List<SplitExpense>getExpenseByPayer(Long id);
    List<SplitExpense>getExpenseByPayee(Long id);
+   List<SplitExpense> getUnsettledSplits();
 }

@@ -109,5 +109,9 @@ return splitExpenseRepository.findById( id)
     public List<SplitExpense> getExpenseByPayee(Long payeeId){
         return splitExpenseRepository.findByPayeeUserId(payeeId);
     }
+    @Override
+    public   List<SplitExpense> getUnsettledSplits(){
+        return splitExpenseRepository.findByIsSettledFalse();
+    }
 }
 

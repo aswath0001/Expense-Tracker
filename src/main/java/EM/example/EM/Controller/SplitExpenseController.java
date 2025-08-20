@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.ContextNotEmptyException;
 import java.util.List;
 
 @RestController
@@ -99,5 +100,23 @@ public class SplitExpenseController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to retrieve splits by payee");
         }
 
+    }
+    @GetMapping("/unsettled")
+    public ResponseEntity<?> getUnsettledSplits() {
+        try {
+            List<SplitExpense> unSettledSplits = splitExpenseService.getUnsettledSplits();
+
+            if (unSettledSplits.isEmpty()) {
+                throw new ContextNotEmptyException("No unsettled splits found");
+            }
+
+            return ResponseEntity.ok(unSettledSplits);
+
+        } catch (ContextNotEmptyException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to retrieve unsettled splits: " + e.getMessage());
+        }
     }
 }

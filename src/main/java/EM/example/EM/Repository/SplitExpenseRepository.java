@@ -8,4 +8,5 @@ import java.util.List;
 public interface SplitExpenseRepository extends JpaRepository<SplitExpense,Long> {
     List<SplitExpense> findByPayerUserId(Long payerId);
     List<SplitExpense> findByPayeeUserId(Long payeeId);
+    List<SplitExpense> findByIsSettledFalse();
 }
