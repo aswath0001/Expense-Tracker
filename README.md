@@ -1,4 +1,4 @@
-💰 Expense Tracker
+Expense Tracker
 
 A robust, scalable, and production-ready expense tracking system built with Spring Boot and MySQL. It supports full financial tracking, user management, split expenses, and real-time balance calculations.
 
