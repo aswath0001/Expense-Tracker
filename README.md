@@ -2,6 +2,12 @@ Expense Tracker
 
 A robust, scalable,and production-ready expense tracking system built with Spring Boot and MySQL. It supports full financial tracking, user management, split expenses, and real-time balance calculations.
 
+Setup Instructions
+
+Clone the Repository
+
+git clone https://github.com/aswath0001/expense-tracker.git
+cd expense-tracker
 🚀 Features Overview
 1. 👤 User Management
 
@@ -159,13 +165,6 @@ Java 17+
 Maven
 
 MySQL Server
-
-Setup Instructions
-
-Clone the Repository
-
-git clone https://github.com/aswath0001/expense-tracker.git
-cd expense-tracker
 
 Configure application.properties
 
