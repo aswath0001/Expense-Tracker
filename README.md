@@ -1,167 +1,226 @@
 💰 Expense Tracker
-🚀 Implemented Functionality
-1. User Management
-✅ User Registration - Create new users with email validation
-✅ Get All Users - Retrieve complete user list
-✅ Get User by ID - Fetch specific user details
-✅ Update User - Modify user information
-✅ Delete User - Remove users (with relationship handling)
 
-2. Expense Management
-✅ Create Expenses - Add new expense records
-✅ View All Expenses - Get complete expense history
-✅ Expense by ID - Retrieve specific expense details
-✅ Update Expenses - Modify existing expenses
-✅ Delete Expenses - Remove expense records
-✅ Date Range Filtering - Filter expenses by date ranges
-✅ Title-based Search - Find expenses by title
+A robust, scalable, and production-ready expense tracking system built with Spring Boot and MySQL. It supports full financial tracking, user management, split expenses, and real-time balance calculations.
 
-3. Income Tracking
-✅ Record Income - Add income entries
-✅ View All Income - Get complete income history
-✅ Income by ID - Retrieve specific income details
-✅ Update Income - Modify income records
-✅ Delete Income - Remove income entries
+🚀 Features Overview
+1. 👤 User Management
 
-4. Split Expense System
-✅ Create Splits - Divide expenses among users
-✅ View All Splits - See all expense divisions
-✅ Get Split by ID - Retrieve specific split details
-✅ Settle Splits - Mark splits as paid/processed
-✅ Delete Splits - Remove split records
-✅ Payer-based Filtering - Find splits by who owes money
-✅ Payee-based Filtering - Find splits by who receives money
+✅ User Registration – Create new users with email validation
 
-5. Balance Management
-✅ Automatic Balance Updates - Real-time balance calculations
-✅ Balance Tracking - Current balance for each user
-✅ Transaction History - Complete financial tracking
+✅ Get All Users – Retrieve full list of users
+
+✅ Get User by ID – Fetch specific user details
+
+✅ Update User – Modify user data
+
+✅ Delete User – Remove users with relationship handling
+
+2. 💸 Expense Management
+
+✅ Create Expenses – Add new expense records
+
+✅ View All Expenses – Full expense history
+
+✅ Get Expense by ID – Retrieve specific expense
+
+✅ Update Expenses – Modify existing records
+
+✅ Delete Expenses – Remove records cleanly
+
+✅ Date Range Filtering – Filter expenses by date
+
+✅ Title-based Search – Find expenses by name/title
+
+3. 💰 Income Tracking
+
+✅ Record Income – Add income entries
+
+✅ View All Income – Complete income log
+
+✅ Get Income by ID – Specific income details
+
+✅ Update Income – Edit income data
+
+✅ Delete Income – Remove entries
+
+4. 👥 Split Expense System
+
+✅ Create Splits – Divide expenses among users
+
+✅ View All Splits – See all divisions
+
+✅ Get Split by ID – Fetch a specific split
+
+✅ Settle Splits – Mark splits as settled
+
+✅ Delete Splits – Remove records
+
+✅ Payer-based Filtering – See what each user owes
+
+✅ Payee-based Filtering – See what each user receives
+
+5. 📊 Balance Management
+
+✅ Automatic Balance Updates – Real-time balance changes
+
+✅ User Balance Tracking – Current financial position
+
+✅ Transaction History – Full record of income, expenses, and splits
 
 🗄️ Database Structure
-Core Tables:
-user - User accounts with balance tracking
+🔑 Core Tables
 
-expense - Expense records with categories and dates
+user – User accounts, balance tracking
 
-income - Income records with categorization
+expense – Expense records with categories and timestamps
 
-split_expense - Expense division between users
+income – Income records with source tracking
 
-expense_participant - Track participants in splits
+split_expense – Shared expenses across users
 
-Key Relationships:
-Users can create multiple expenses
+expense_participant – Links participants in splits
 
-Expenses can be split among multiple users
+🔗 Key Relationships
 
-Automatic balance synchronization
+Users can create multiple expenses and income entries
 
-Referential integrity with foreign keys
+Expenses can be split between multiple users
 
-📋 Available API Endpoints
-Users (/api/user)
-POST / - Create new user
+Automatic balance sync between users
 
-GET / - Get all users
+Referential integrity using foreign keys
 
-GET /{id} - Get user by ID
+📋 API Endpoints
+👤 Users /api/user
+Method	Endpoint	Description
+POST	/	Create new user
+GET	/	Get all users
+GET	/{id}	Get user by ID
+PUT	/{id}	Update user
+DELETE	/{id}	Delete user
+💸 Expenses /api/expense
+Method	Endpoint	Description
+POST	/	Create expense
+GET	/	Get all expenses
+GET	/{id}	Get expense by ID
+GET	/title/{title}	Search by title
+GET	/filter	Filter by date range
+PUT	/{id}	Update expense
+DELETE	/{id}	Delete expense
+👥 Split Expenses /api/split-expense
+Method	Endpoint	Description
+POST	/	Create split
+GET	/	View all splits
+GET	/{id}	Get split by ID
+GET	/payer/{id}	Get splits by payer
+GET	/payee/{id}	Get splits by payee
+PUT	/{id}	Update split
+DELETE	/{id}	Delete split
+💰 Income /api/income
+Method	Endpoint	Description
+POST	/	Create income
+GET	/	Get all income
+GET	/{id}	Get income by ID
+PUT	/{id}	Update income
+DELETE	/{id}	Delete income
+🧠 Technical Architecture
+⚙️ Backend
 
-PUT /{id} - Update user
+Spring Boot 3.x – Modern Java framework
 
-DELETE /{id} - Delete user
+Spring Data JPA – ORM and repository pattern
 
-Expenses (/api/expense)
-POST / - Create expense
+RESTful APIs – Clean, maintainable, scalable
 
-GET / - Get all expenses
+CORS Enabled – Cross-origin resource sharing
 
-GET /{id} - Get expense by ID
+Error Handling – Centralized and descriptive
 
-GET /title/{title} - Search by title
+🗃️ Database
 
-GET /filter - Filter by date range
+MySQL – Relational database integration
 
-PUT /{id} - Update expense
+Auto-increment IDs – Primary key management
 
-DELETE /{id} - Delete expense
+Foreign Key Constraints – Referential integrity
 
-Split Expenses (/api/split-expense)
-POST / - Create split expense
+Transaction Management – ACID-compliant operations
 
-GET / - Get all splits
+Lazy Loading – Efficient resource use
 
-GET /{id} - Get split by ID
+✅ Data Validation
 
-GET /payer/{id} - Get splits by payer
+Unique email enforcement
 
-GET /payee/{id} - Get splits by payee
+Proper data type validation
 
-PUT /{id} - Update split
+Foreign key constraints for relationships
 
-DELETE /{id} - Delete split
-
-Income (/api/income)
-POST / - Create income record
-
-GET / - Get all income
-
-GET /{id} - Get income by ID
-
-PUT /{id} - Update income
-
-DELETE /{id} - Delete income
-
-🎯 Technical Features
-Backend:
-Spring Boot 3.x - Modern Java framework
-
-Spring Data JPA - Database management
-
-MySQL Integration - Production-ready database
-
-RESTful APIs - Clean, standardized endpoints
-
-CORS Enabled - Cross-origin support
-
-Error Handling - Comprehensive exception management
-
-Data Management:
-Auto-increment IDs - Proper primary key management
-
-Foreign Key Constraints - Data integrity enforcement
-
-Transaction Management - Atomic operations
-
-Lazy Loading - Performance optimization
-
-JSON Serialization - Clean API responses
-
-Validation:
-Unique Email Enforcement - Prevent duplicate accounts
-
-Data Type Validation - Proper field validation
-
-Relationship Integrity - Prevent orphaned records
-
-Balance Consistency - Financial data accuracy
+Real-time balance sync logic
 
 🔄 Workflow Example
-User creates expense: ₹1000 dinner
 
-Split among friends: 3 people × ₹333.33 each
+A user creates an expense: ₹1000 Dinner
+
+Split with 3 friends → ₹333.33 each
 
 Automatic balance update:
 
-Payer balance: -₹333.33
+Payer’s balance: -₹666.67
 
-Payee balance: +₹333.33
+Each payee’s balance: +₹333.33
 
-Settlement: Mark splits as paid when settled
+Splits are marked as settled when paid
 
-🚦 Ready for Production
-✅ Database migrations - Automatic schema updates
-✅ Error handling - Proper HTTP status codes
-✅ Input validation - Data integrity checks
-✅ Performance optimized - Efficient database queries
-✅ Scalable architecture - Ready for more users
-This is a fully functional expense tracker with all core features implemented and tested!
+🚦 Production-Ready Features
+
+✅ Database migrations with schema updates
+
+✅ Proper HTTP status codes & error responses
+
+✅ Full input validation
+
+✅ Optimized SQL queries via JPA
+
+✅ Scalable codebase and modular design
+
+🛠️ Getting Started
+Prerequisites
+
+Java 17+
+
+Maven
+
+MySQL Server
+
+Setup Instructions
+
+Clone the Repository
+
+git clone https://github.com/your-username/expense-tracker.git
+cd expense-tracker
+
+
+Configure application.properties
+
+spring.datasource.url=jdbc:mysql://localhost:3306/expense_db
+spring.datasource.username=root
+spring.datasource.password=your_password
+spring.jpa.hibernate.ddl-auto=update
+
+
+Run the Application
+
+mvn spring-boot:run
+
+📌 Future Improvements
+
+User authentication with JWT
+
+Expense categories and analytics
+
+Mobile-friendly frontend (React/Flutter)
+
+Notifications for due splits
+
+Currency conversion and localization
