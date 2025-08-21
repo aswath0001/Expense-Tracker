@@ -90,39 +90,6 @@ Automatic balance sync between users
 
 Referential integrity using foreign keys
 
-📋 API Endpoints
-👤 Users /api/user
-Method	Endpoint	Description
-POST	/	Create new user
-GET	/	Get all users
-GET	/{id}	Get user by ID
-PUT	/{id}	Update user
-DELETE	/{id}	Delete user
-💸 Expenses /api/expense
-Method	Endpoint	Description
-POST	/	Create expense
-GET	/	Get all expenses
-GET	/{id}	Get expense by ID
-GET	/title/{title}	Search by title
-GET	/filter	Filter by date range
-PUT	/{id}	Update expense
-DELETE	/{id}	Delete expense
-👥 Split Expenses /api/split-expense
-Method	Endpoint	Description
-POST	/	Create split
-GET	/	View all splits
-GET	/{id}	Get split by ID
-GET	/payer/{id}	Get splits by payer
-GET	/payee/{id}	Get splits by payee
-PUT	/{id}	Update split
-DELETE	/{id}	Delete split
-💰 Income /api/income
-Method	Endpoint	Description
-POST	/	Create income
-GET	/	Get all income
-GET	/{id}	Get income by ID
-PUT	/{id}	Update income
-DELETE	/{id}	Delete income
 🧠 Technical Architecture
 ⚙️ Backend
 
