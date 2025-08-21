@@ -1,62 +1,40 @@
-💰 Expense Tracker 
+💰 Expense Tracker
 🚀 Implemented Functionality
 1. User Management
 ✅ User Registration - Create new users with email validation
-
 ✅ Get All Users - Retrieve complete user list
-
 ✅ Get User by ID - Fetch specific user details
-
 ✅ Update User - Modify user information
-
 ✅ Delete User - Remove users (with relationship handling)
 
 2. Expense Management
 ✅ Create Expenses - Add new expense records
-
 ✅ View All Expenses - Get complete expense history
-
 ✅ Expense by ID - Retrieve specific expense details
-
 ✅ Update Expenses - Modify existing expenses
-
 ✅ Delete Expenses - Remove expense records
-
 ✅ Date Range Filtering - Filter expenses by date ranges
-
 ✅ Title-based Search - Find expenses by title
 
 3. Income Tracking
 ✅ Record Income - Add income entries
-
 ✅ View All Income - Get complete income history
-
 ✅ Income by ID - Retrieve specific income details
-
 ✅ Update Income - Modify income records
-
 ✅ Delete Income - Remove income entries
 
 4. Split Expense System
 ✅ Create Splits - Divide expenses among users
-
 ✅ View All Splits - See all expense divisions
-
 ✅ Get Split by ID - Retrieve specific split details
-
 ✅ Settle Splits - Mark splits as paid/processed
-
 ✅ Delete Splits - Remove split records
-
 ✅ Payer-based Filtering - Find splits by who owes money
-
 ✅ Payee-based Filtering - Find splits by who receives money
 
 5. Balance Management
 ✅ Automatic Balance Updates - Real-time balance calculations
-
 ✅ Balance Tracking - Current balance for each user
-
 ✅ Transaction History - Complete financial tracking
 
 🗄️ Database Structure
@@ -182,13 +160,8 @@ Settlement: Mark splits as paid when settled
 
 🚦 Ready for Production
 ✅ Database migrations - Automatic schema updates
-
 ✅ Error handling - Proper HTTP status codes
-
 ✅ Input validation - Data integrity checks
-
 ✅ Performance optimized - Efficient database queries
-
 ✅ Scalable architecture - Ready for more users
-
 This is a fully functional expense tracker with all core features implemented and tested!
