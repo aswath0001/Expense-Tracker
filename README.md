@@ -197,9 +197,8 @@ Setup Instructions
 
 Clone the Repository
 
-git clone https://github.com/your-username/expense-tracker.git
+git clone https://github.com/aswath0001/expense-tracker.git
 cd expense-tracker
-
 
 Configure application.properties
 
@@ -218,8 +217,6 @@ mvn spring-boot:run
 User authentication with JWT
 
 Expense categories and analytics
-
-Mobile-friendly frontend (React/Flutter)
 
 Notifications for due splits
 
