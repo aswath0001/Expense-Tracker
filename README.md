@@ -174,17 +174,7 @@ spring.datasource.username=root
 spring.datasource.password=your_password
 spring.jpa.hibernate.ddl-auto=update
 
-
 Run the Application
 
 mvn spring-boot:run
 
-📌 Future Improvements
-
-User authentication with JWT
-
-Expense categories and analytics
-
-Notifications for due splits
-
-Currency conversion and localization
