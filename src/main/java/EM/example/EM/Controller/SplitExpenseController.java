@@ -39,7 +39,7 @@ public class SplitExpenseController {
             }
             return ResponseEntity.ok(split);
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to retrive split expenses");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to retrieve split expenses");
         }
     }
     @GetMapping("/{id}")
@@ -106,7 +106,7 @@ public class SplitExpenseController {
             List<SplitExpense> unSettledSplits = splitExpenseService.getUnsettledSplits();
 
             if (unSettledSplits.isEmpty()) {
-                throw new ContextNotEmptyException("No unsettled splits found");
+                throw new ContextNotEmptyException("No unsettled splits found ");
             }
 
             return ResponseEntity.ok(unSettledSplits);

@@ -34,4 +34,5 @@ public class Expense {
     @OneToMany(mappedBy = "expense")
     @JsonIgnore
     private List<SplitExpense> splits;
+
 }
