@@ -34,7 +34,7 @@ public class IncomeServiceImpl implements IncomeService {
         if(optionalIncome.isPresent()){
             return updateIncome(id,incomeDTO);
         }else {
-            throw new EntityNotFoundException("Income is not present with id"+id);
+            throw new EntityNotFoundException("Income is not present with id "+id);
         }
     }
 
