@@ -1,53 +1,51 @@
 package EM.example.EM.Controller;
 
+
 import EM.example.EM.DTO.IncomeDTO;
-import EM.example.EM.Entity.Income;
 import EM.example.EM.Services.income.IncomeService;
-import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/income")
+@RequestMapping("/api/income")  // Changed to plural
 @RequiredArgsConstructor
 @CrossOrigin("*")
-
 public class IncomeController {
+
     private final IncomeService incomeService;
 
     @PostMapping
-    public ResponseEntity<?> postIncome (@RequestBody IncomeDTO dto){
-        Income createIncome = incomeService.postIncome(dto);
-        if(createIncome != null){
-            return ResponseEntity.status(HttpStatus.CREATED).body(createIncome);
-        }else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+    public ResponseEntity<IncomeDTO> createIncome(@Valid @RequestBody IncomeDTO incomeDTO) {
+        IncomeDTO createdIncome = incomeService.createIncome(incomeDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdIncome);
     }
-    @GetMapping("/all")
-    public  ResponseEntity<?> getAllIncome (){
-        return ResponseEntity.ok(incomeService.getAllIncome());
+
+    @GetMapping
+    public ResponseEntity<List<IncomeDTO>> getAllIncomes() {
+        List<IncomeDTO> incomes = incomeService.getAllIncome();
+        return ResponseEntity.ok(incomes);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<IncomeDTO> getIncomeById(@PathVariable Long id) {
+        IncomeDTO income = incomeService.getIncomeById(id);
+        return ResponseEntity.ok(income);
+    }
+
     @PutMapping("/{id}")
-public ResponseEntity<?> updateIncome (@PathVariable Long id, @RequestBody IncomeDTO incomeDTO){
-        try {
-            return ResponseEntity.ok(incomeService.updateIncome(id,incomeDTO));
-        }catch (EntityNotFoundException ex){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
-        }
-}
-@GetMapping("/{id}")
-public  ResponseEntity<?> getIncomeById(@PathVariable Long id){
-        try {
-            return ResponseEntity.ok(incomeService.getIncomeById(id));
-        }catch (EntityNotFoundException ex){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }catch (Exception e ){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
-        }
-}
+    public ResponseEntity<IncomeDTO> updateIncome(@PathVariable Long id, @Valid @RequestBody IncomeDTO incomeDTO) {
+        IncomeDTO updatedIncome = incomeService.updateIncome(id, incomeDTO);
+        return ResponseEntity.ok(updatedIncome);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteIncome(@PathVariable Long id) {
+        incomeService.deleteIncome(id);
+        return ResponseEntity.noContent().build();
+    }
 }

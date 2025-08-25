@@ -5,14 +5,13 @@ import EM.example.EM.Entity.Expense;
 
 import java.time.LocalDate;
 import java.util.List;
-
+// ExpenseService Interface
 public interface ExpenseService {
-
-     Expense postExpense(ExpenseDTO expenseDTO);
-    List<Expense> getAllExpense();
-    Expense getExpenseById (long id);
-    Expense updateExpense (Long id,ExpenseDTO expenseDTO);
-    void deleteExpense(long id);
-    Expense getExpenseByTitle(String title);
-    List<Expense> getExpenseByDateRange(LocalDate startDate, LocalDate endDate);
+    ExpenseDTO createExpense(ExpenseDTO expenseDTO);
+    List<ExpenseDTO> getAllExpenses();
+    ExpenseDTO getExpenseById(Long id);
+    ExpenseDTO updateExpense(Long id, ExpenseDTO expenseDTO);
+    void deleteExpense(Long id);
+    List<ExpenseDTO> getExpensesByTitle(String title);
+    List<ExpenseDTO> getExpensesByDateRange(LocalDate startDate, LocalDate endDate);
 }

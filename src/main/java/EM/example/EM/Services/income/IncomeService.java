@@ -6,9 +6,10 @@ import EM.example.EM.Entity.Income;
 import java.util.List;
 
 public interface IncomeService {
-    Income postIncome (IncomeDTO incomeDTO);
+    IncomeDTO createIncome(IncomeDTO incomeDTO);
     List<IncomeDTO> getAllIncome();
-    Income updateIncome (Long id, IncomeDTO incomeDTO);
-     IncomeDTO getIncomeById (Long id);
+    IncomeDTO updateIncome(Long id, IncomeDTO incomeDTO);
+    IncomeDTO getIncomeById(Long id);
+    void deleteIncome(Long id);
 }
 

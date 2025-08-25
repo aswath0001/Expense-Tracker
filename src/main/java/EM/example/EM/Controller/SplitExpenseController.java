@@ -84,7 +84,7 @@ public class SplitExpenseController {
             return ResponseEntity.ok(splits);
         }catch (Exception e){
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to retrive splits by payer");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to retri    ve splits by payer");
         }
     }
     @GetMapping("/payee/{payeeId}")

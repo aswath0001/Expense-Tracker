@@ -1,56 +1,69 @@
 package EM.example.EM.Services.income;
 
+
 import EM.example.EM.DTO.IncomeDTO;
 import EM.example.EM.Entity.Income;
+import EM.example.EM.Exception.IncomeNotFoundException;
+import EM.example.EM.Mapper.IncomeMapper;
 import EM.example.EM.Repository.IncomeRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class IncomeServiceImpl implements IncomeService {
 
     private final IncomeRepository incomeRepository;
+    private final IncomeMapper incomeMapper;
 
-    public Income postIncome (IncomeDTO incomeDTO){
-        Income income = new Income();
-        income.setTitle(incomeDTO.getTitle());
-        income.setDate(incomeDTO.getDate());
-        income.setAmount(incomeDTO.getAmount());
-        income.setCategory(incomeDTO.getCategory());
-        income.setDescription(incomeDTO.getDescription());
-
-        return incomeRepository.save(income);
+    @Override
+    @Transactional
+    public IncomeDTO createIncome(IncomeDTO incomeDTO) {
+        Income income = incomeMapper.toEntity(incomeDTO);
+        Income savedIncome = incomeRepository.save(income);
+        return incomeMapper.toDTO(savedIncome);
     }
 
-
-    public Income updateIncome (Long id, IncomeDTO incomeDTO){
-        Optional<Income> optionalIncome = incomeRepository.findById(id);
-        if(optionalIncome.isPresent()){
-            return updateIncome(id,incomeDTO);
-        }else {
-            throw new EntityNotFoundException("Income is not present with id "+id);
-        }
-    }
-
-public List <IncomeDTO> getAllIncome(){
-        return incomeRepository.findAll().stream().sorted(Comparator.comparing(Income::getDate).reversed())
-                .map(Income::getIncomeDTO)
+    @Override
+    @Transactional(readOnly = true)
+    public List<IncomeDTO> getAllIncome() {
+        return incomeRepository.findAll().stream()
+                .sorted(Comparator.comparing(Income::getDate).reversed())
+                .map(incomeMapper::toDTO)
                 .collect(Collectors.toList());
-        }
-
-        public IncomeDTO getIncomeById (Long id){
-        Optional<Income> optionalIncome = incomeRepository.findById(id);
-        if(optionalIncome.isPresent()){
-            return optionalIncome.get().getIncomeDTO();
-        }else {
-            throw new EntityNotFoundException("No income found for the id "+id);
-        }
     }
 
+    @Override
+    @Transactional
+    public IncomeDTO updateIncome(Long id, IncomeDTO incomeDTO) {
+        Income existingIncome = incomeRepository.findById(id)
+                .orElseThrow(() -> new IncomeNotFoundException(id));
+
+        incomeMapper.updateEntityFromDTO(incomeDTO, existingIncome);
+        Income updatedIncome = incomeRepository.save(existingIncome);
+        return incomeMapper.toDTO(updatedIncome);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public IncomeDTO getIncomeById(Long id) {
+        Income income = incomeRepository.findById(id)
+                .orElseThrow(() -> new IncomeNotFoundException(id));
+        return incomeMapper.toDTO(income);
+    }
+
+    @Override
+    @Transactional
+    public void deleteIncome(Long id) {
+        if (!incomeRepository.existsById(id)) {
+            throw new IncomeNotFoundException(id);
+        }
+        incomeRepository.deleteById(id);
+    }
 }
