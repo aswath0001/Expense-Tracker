@@ -1,48 +1,67 @@
 package EM.example.EM.Services.User;
 
+
 import EM.example.EM.DTO.UserDTO;
 import EM.example.EM.Entity.User;
+import EM.example.EM.Exception.UserNotFoundException;
+import EM.example.EM.Mapper.UserMapper;
 import EM.example.EM.Repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService{
+@Transactional
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Override
-    public User createUser(UserDTO userDTO){
-        User user = new User();
-        user.setName(userDTO.getName());
-        user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
-        user.setCurrentBalance(userDTO.getCurrentBalance());
-
-        return userRepository.save(user);
-    }
-    @Override
-    public List<User> getAllUser(){
-return userRepository.findAll();
-    }
-    @Override
-    public User getUserById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
-    }
-    @Override
-    public User updateUser(Long id,UserDTO userDTO){
-        User existingUser =  getUserById(id);
-        existingUser.setName(userDTO.getName());
-        existingUser.setEmail(userDTO.getEmail());
-        existingUser.setPassword(userDTO.getPassword());
-        existingUser.setCurrentBalance(userDTO.getCurrentBalance());
-
-        return userRepository.save(existingUser);
+    @Transactional
+    public UserDTO createUser(UserDTO userDTO) {
+        User user = userMapper.toEntity(userDTO);
+        User savedUser = userRepository.save(user);
+        return userMapper.toDTO(savedUser);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(userMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UserDTO getUserById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+        return userMapper.toDTO(user);
+    }
+
+    @Override
+    @Transactional
+    public UserDTO updateUser(Long id, UserDTO userDTO) {
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+
+        userMapper.updateEntityFromDTO(userDTO, existingUser);
+        User updatedUser = userRepository.save(existingUser);
+        return userMapper.toDTO(updatedUser);
+    }
+
+    @Override
+    @Transactional
+    public void deleteUser(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFoundException(id);
+        }
+        userRepository.deleteById(id);
+    }
 }
